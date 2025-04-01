@@ -4,7 +4,7 @@ import React from 'react';
 
 const NavBar: React.FC = () => {
     return (
-        <div className='flex justify-between items-center p-4 bg-gradient-to-l from-[#42285f] to-[#2F0743] h-26 text-white '>
+        <div className='flex justify-between items-center p-4 bg-gradient-to-tr from-purple-600 via-black to-purple-900 h-26 text-white '>
 
             {/* Botón Home a la izquierda */}
             <div className='flex items-center font-Arial duration-500 hover:scale-115'>
