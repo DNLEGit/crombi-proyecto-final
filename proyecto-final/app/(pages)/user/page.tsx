@@ -36,14 +36,14 @@ export default function UserPage() {
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-sm font-medium text-gray-300" htmlFor="bio"
-                            >Bio</label>
-                            <textarea
+                            <label className="block text-sm font-medium text-gray-300" htmlFor="password"
+                            >Password</label>
+                            <input
                                 className="mt-1 p-2 w-full bg-gray-700 border border-gray-600 rounded-md text-white"
-                                rows={3}
-                                name="bio"
-                                id="bio"
-                            ></textarea>
+                                name="password"
+                                id="password"
+                                type="password"
+                            />
                         </div>
 
                         <div className="flex justify-end">

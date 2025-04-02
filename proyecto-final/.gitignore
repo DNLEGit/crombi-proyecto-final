@@ -32,7 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
-
+ecommerce-crombie-9696fd55a962.json
 # vercel
 .vercel
 
