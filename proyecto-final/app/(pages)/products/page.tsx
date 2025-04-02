@@ -97,7 +97,7 @@ export default function AdminPage() {
     );
 }
 
-make the categories for the seeds so i can test the gcloud bucket i created last week
-finish setting the prisma orm so i can merge the branch with dev before tomorro if posible 
-next step is the user auth and setting the routes each kind of user can accses.
+// make the categories for the seeds so i can test the gcloud bucket i created last week
+// finish setting the prisma orm so i can merge the branch with dev before tomorro if posible
+// next step is the user auth and setting the routes each kind of user can accses.
 
