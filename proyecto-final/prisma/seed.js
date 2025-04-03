@@ -36,11 +36,21 @@ async function main() {
         name: dictator.name,
         email: dictator.email,
         password: 'client123', // Ensure to hash it before storing in production
-        role: 'USER' as const,
+        role: 'USER',
     }));
 
     const createdUsers = await prisma.user.createMany({
         data: dictatorUserData,
+    });
+    const categories = await prisma.category.createMany({
+        data: [
+            { name: "Games" },
+            { name: "Consoles" },
+            { name: "Keyboards" },
+            { name: "Mouses" },
+            { name: "Joysticks" },
+
+        ],
     });
 
     console.log(`👥 ${createdUsers.count} dictator users created`);
