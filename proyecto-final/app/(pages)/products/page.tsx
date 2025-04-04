@@ -3,7 +3,7 @@
 import Card from "@/components/card";
 import { useState, useEffect } from "react";
 
-export default function AdminPage() {
+export default function Product() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
