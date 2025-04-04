@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
+import Card from "@/components/card";
 import { useState, useEffect } from "react";
 
 export default function AdminPage() {
@@ -11,10 +13,14 @@ export default function AdminPage() {
 
     useEffect(() => {
         fetch("/api/categories")
-            .then((res) => res.json())
-            .then((data) => setCategories(data.categories));
-    }, []);
+            .then((res) => res.json())            
+            .then((data) => {
+                console.log("categories fetched",data.categories);
+                setCategories(data.categories);
+            });
 
+    }, []);
+    
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const formData = new FormData();
@@ -24,11 +30,11 @@ export default function AdminPage() {
         formData.append("category", categoryId)
         if (image) formData.append("image", image);
 
-        const res = await fetch("/api/products", {
+        const res = await fetch("/api/product", {
             method: "POST",
             body: formData,
         });
-
+        console.log(res);
         if (res.ok) {
             alert("Producto creado!");
             setName("");
@@ -37,6 +43,7 @@ export default function AdminPage() {
             setCategoryId("");
             setImage(null);
         }
+      
     };
 
     return (
@@ -93,6 +100,9 @@ export default function AdminPage() {
                     Crear Producto
                 </button>
             </form>
+            <div>
+                <Card/>
+            </div>
         </main>
     );
 }

@@ -1,4 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
+// import { Product } from '@prisma/client';
+
+type Product = {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    image: string;
+};
+
+
 
 const Card: React.FC = () => {
     return <div>
@@ -18,3 +30,7 @@ const Card: React.FC = () => {
 };
 
 export default Card;
+
+//make the card so it can take the proprs of any product and display them 
+//make so it can be paginated also
+//make the search bar to filter the prods 

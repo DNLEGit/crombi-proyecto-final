@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { Storage } from "@google-cloud/storage";
@@ -5,11 +6,18 @@ import path from "path";
 import { v4 as uuidv4 } from "uuid";
 
 const storage = new Storage();
-const BUCKET_NAME = process.env.GOOGLE_CLOUD_BUCKET!;
+const BUCKET_NAME = "bucket-videoar";
+
+
+export async function GET(){
+    const products = await prisma.product.findMany();
+    return NextResponse.json({products}, {status: 200})
+}
 
 export async function POST(req: Request) {
+    try{
     const formData = await req.formData();
-
+    console.log("From data: ", formData)
     const name = formData.get("name") as string;
     const description = formData.get("description") as string;
     const price = parseInt(formData.get("price") as string, 10);
@@ -43,4 +51,14 @@ export async function POST(req: Request) {
         { message: "Producto creado", product },
         { status: 201 }
     );
+}catch (error) {
+    console.error("Error al crear el producto:", error);
+    return NextResponse.json(
+        {
+            message: "Error al crear el producto",
+            error: (error as Error)?.message || error,
+        },
+        { status: 500 }
+    );
+}
 }
