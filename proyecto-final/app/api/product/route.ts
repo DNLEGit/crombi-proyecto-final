@@ -14,8 +14,9 @@ export async function GET(){
     return NextResponse.json({products}, {status: 200})
 }
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
     try{
+    //tries to get the fields 
     const formData = await req.formData();
     console.log("From data: ", formData)
     const name = formData.get("name") as string;
@@ -23,14 +24,14 @@ export async function POST(req: Request) {
     const price = parseInt(formData.get("price") as string, 10);
     const categoryId = formData.get("category") as string;
     const image = formData.get("image") as File | null;
-
+    //if any of the fields is missing it interrupsts the creation and return the issue
     if (!name || !description || !price || !image) {
         return NextResponse.json(
-            { message: "Todos los campos son obligatorios." },
+            { message: "Every field is required." },
             { status: 400 }
         );
     }
-
+    //sets the name of the file, connects to the bucket and saves the img in it 
     const fileName = `${uuidv4()}${path.extname(image.name)}`;
     const bucket = storage.bucket(BUCKET_NAME);
     const file = bucket.file(fileName);
@@ -39,23 +40,23 @@ export async function POST(req: Request) {
         metadata: { contentType: image.type },
         public: true,
     });
-
+    // assings the name of the img as its url
     const imageUrl = `https://storage.googleapis.com/${BUCKET_NAME}/${fileName}`;
 
-    // 🔹 Guardar el producto en la base de datos
+    // Saves the product on the db
     const product = await prisma.product.create({
         data: { name, description, price, categoryId, image: imageUrl },
     });
 
     return NextResponse.json(
-        { message: "Producto creado", product },
+        { message: "Product created", product },
         { status: 201 }
     );
 }catch (error) {
-    console.error("Error al crear el producto:", error);
+   
     return NextResponse.json(
         {
-            message: "Error al crear el producto",
+            message: "Error creating the product:",
             error: (error as Error)?.message || error,
         },
         { status: 500 }

@@ -17,6 +17,7 @@
     "bcryptjs": "^3.0.2",
     "dotenv": "^16.4.7",
     "faker": "^6.6.6",
+    "jsonwebtoken": "^9.0.2",
     "next": "15.2.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -24,6 +25,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^20.17.30",
     "@types/react": "^19",
     "@types/react-dom": "^19",

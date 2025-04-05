@@ -1,8 +1,24 @@
+"use client"
 import Link from 'next/link';
+import { useEffect, useState } from "react"
+import { usePathname } from 'next/navigation';
 import React from 'react';
+import { logoutAction } from '@/app/actions/logout';
 
 
 const NavBar: React.FC = () => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const pathname = usePathname();
+
+    useEffect(() => {
+        async function checkAuth(){
+            const res = await fetch("/api/auth/user", { cache: "no-store" });
+            const data = await res.json();
+            setIsAuthenticated(data.isAuthenticated)
+        }
+        checkAuth();
+    }, [pathname])
+
     return (
         <div className='flex justify-between items-center p-4 bg-gradient-to-tr from-purple-600 via-black to-purple-900 h-26 text-white '>
 
@@ -53,22 +69,32 @@ const NavBar: React.FC = () => {
                     <div className='m-2 hover:text-[#8858ed] text-[16px]'>
                         <Link href={'/products'}> Products </Link>
                     </div>
-                    <div className='m-2 hover:text-[#8858ed] text-[16px]'>
-                        <Link href={'/user'}>User</Link>
-                    </div>
 
-                    <div className='flex justify-center items-center max-w-full'>
-                        {/* Icono del carrito */}
-                        <div className='m-2 hover:text-[#8858ed]'>
-                            <Link href={'/cart'}>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-                                    <path d="M2.25 2.25a.75.75 0 0 0 0 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 0 0-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 0 0 0-1.5H5.378A2.25 2.25 0 0 1 7.5 15h11.218a.75.75 0 0 0 .674-.421 60.358 60.358 0 0 0 2.96-7.228.75.75 0 0 0-.525-.965A60.864 60.864 0 0 0 5.68 4.509l-.232-.867A1.875 1.875 0 0 0 3.636 2.25H2.25ZM3.75 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM16.5 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" />
-                                </svg>
-
-                            </Link>
+                {isAuthenticated ? (
+                    <>
+                        <div className='m-2 hover:text-[#8858ed] text-[16px]'>
+                            <Link href={'/user'}>User</Link>
                         </div>
-                    </div>
-
+                        <div>
+                            <button onClick={logoutAction}>
+                                logout
+                            </button>
+                        </div>
+                
+                        <div className='flex justify-center items-center max-w-full'>
+                            {/* Icono del carrito */}
+                            <div className='m-2 hover:text-[#8858ed]'>
+                                <Link href={'/cart'}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+                                        <path d="M2.25 2.25a.75.75 0 0 0 0 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 0 0-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 0 0 0-1.5H5.378A2.25 2.25 0 0 1 7.5 15h11.218a.75.75 0 0 0 .674-.421 60.358 60.358 0 0 0 2.96-7.228.75.75 0 0 0-.525-.965A60.864 60.864 0 0 0 5.68 4.509l-.232-.867A1.875 1.875 0 0 0 3.636 2.25H2.25ZM3.75 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM16.5 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" />
+                                    </svg>
+                                </Link>
+                            </div>
+                        </div>
+                    </>
+                ) : (
+                    <Link href="/login">Login</Link>
+                )}
 
                 </div>
 
@@ -81,5 +107,7 @@ const NavBar: React.FC = () => {
 
 export default NavBar;
 
+
+// Removed conflicting local useState function
 //todo- ponerle un icono al carrito
 //poner icono de usuario

@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { PrismaClient } from '@prisma/client';
+import bcrypt from 'bcryptjs';
+
 
 const prisma = new PrismaClient();
 
@@ -25,7 +27,7 @@ async function main() {
         data: {
             name: 'Admin User',
             email: 'admin@example.com',
-            password: 'admin123', // Ensure to hash it before storing in production
+            password: await bcrypt.hash("admin123", 10), // Ensure to hash it before storing in production
             role: 'ADMIN',
         },
     });
@@ -33,12 +35,14 @@ async function main() {
     console.log('👑 Admin user created:', adminUser);
 
     // Create dictator client users
-    const dictatorUserData = dictatorUsers.map((dictator) => ({
-        name: dictator.name,
-        email: dictator.email,
-        password: 'client123', // Ensure to hash it before storing in production
-        role: 'USER',
-    }));
+    const dictatorUserData = await Promise.all(
+        dictatorUsers.map(async (dictator) => ({
+          name: dictator.name,
+          email: dictator.email,
+          password: await bcrypt.hash('client123', 10),
+          role: 'USER',
+        }))
+      );
 
     const createdUsers = await prisma.user.createMany({
         data: dictatorUserData,
