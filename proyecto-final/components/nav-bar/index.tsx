@@ -1,13 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 import Link from 'next/link';
 import { useEffect, useState } from "react"
 import { usePathname } from 'next/navigation';
 import React from 'react';
 import { logoutAction } from '@/app/actions/logout';
+import router from 'next/router';
 
 
 const NavBar: React.FC = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [showLoading, setShowLoading] = useState(false);
+    const [role, setRole] = useState("");
     const pathname = usePathname();
 
     useEffect(() => {
@@ -15,11 +19,21 @@ const NavBar: React.FC = () => {
             const res = await fetch("/api/auth/user", { cache: "no-store" });
             const data = await res.json();
             setIsAuthenticated(data.isAuthenticated)
+            setRole(data.role)
         }
         checkAuth();
     }, [pathname])
 
-    return (
+    const handleLogout = async (): Promise<void> => {
+        setShowLoading(true);
+        await logoutAction();
+        // Add a 1-second delay
+        setTimeout(() => {
+            router.push("/");
+        }, 1000);
+    };
+    
+        return (
         <div className='flex justify-between items-center p-4 bg-gradient-to-tr from-purple-600 via-black to-purple-900 h-26 text-white '>
 
             {/* Botón Home a la izquierda */}
@@ -70,8 +84,23 @@ const NavBar: React.FC = () => {
                         <Link href={'/products'}> Products </Link>
                     </div>
 
+                    {role === "ADMIN" ? (
+                        <>
+                            <div className='m-2 hover:text-[#8858ed] text-[16px]'>
+                                <Link href={'/admin'}>Admin Panel</Link>
+                            </div>
+                            <div>
+                                <button onClick={handleLogout}>
+                                    Logout
+                                </button>
+                            </div>
+                        </>
+                    ) : null}
+
                 {isAuthenticated ? (
+                   
                     <>
+
                         <div className='m-2 hover:text-[#8858ed] text-[16px]'>
                             <Link href={'/user'}>User</Link>
                         </div>

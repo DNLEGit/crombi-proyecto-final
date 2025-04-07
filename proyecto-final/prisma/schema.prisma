@@ -12,10 +12,12 @@ model User {
   name       String
   email      String   @unique
   password   String
+  imageUrl   String   @default("")
   role       Role     @default(USER)
   createdAt  DateTime @default(now())
   modifiedAt DateTime @default(now())
 }
+//need to add the imgurl property so the user can add an profile img
 
 enum Role {
   ADMIN
@@ -25,7 +27,7 @@ enum Role {
 model Product {
   productId   String   @id @unique @default(uuid())
   name        String
-  description String
+  description String   @db.Text
   price       Int
   categoryId  String   @default("")
   image       String   @default("")
@@ -39,5 +41,6 @@ model Product {
 model Category {
   categoryId String    @id @unique @default(uuid())
   name       String
+  categoryImageUrl String @default("")
   products   Product[]
 }

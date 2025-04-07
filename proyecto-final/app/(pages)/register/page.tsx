@@ -2,11 +2,17 @@
 "use client"
 import { useState } from 'react'
 import { hash } from 'bcryptjs';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
 
 export default function UserPage() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    
+
+    const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -16,7 +22,9 @@ export default function UserPage() {
         const hashedPassword = await hash(password, 10);
         formData.append("password", hashedPassword);
 
-        const res = await fetch("/api/user", {
+        console.log(formData);
+
+        const res = await fetch("/api/auth/user", {
             method: "POST",
             body: formData,
         });
@@ -25,11 +33,12 @@ export default function UserPage() {
             alert("User created");
             setName("");
             setEmail("");
-            setPassword("");
+        router.push("/user");
         }
+       
     }  
     return (
-        <div>
+        <div className='bg-gray-950'>
             <div>
                 <h1>User Page</h1>
             </div>          
@@ -74,9 +83,11 @@ export default function UserPage() {
                                     </div>                                      
                                     <div className="flex justify-end">
                                         <button
-                                            className="bg-gradient-to-r from-purple-600 via-purple-400 to-purple-800 text-white px-4 py-2 font-bold rounded-md hover:opacity-80"
-                                            type="submit">
-                                            Create Profile
+                                              type="submit"
+                                              className="bg-gradient-to-r from-purple-600 via-purple-400 to-purple-800 text-white px-4 py-2 font-bold rounded-md hover:opacity-80"
+                                        >
+                                            Register!
+                                           
                                         </button>
                                     </div>
                           

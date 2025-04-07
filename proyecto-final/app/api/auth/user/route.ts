@@ -5,17 +5,26 @@ import jwt from "jsonwebtoken";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
-    const token = ( await cookies()).get("token")?.value;
+    const token = (await cookies()).get("token")?.value;
 
-    if(!token){
-        return NextResponse.json({ isAuthenticated: false })
+    if (!token) {
+        return NextResponse.json({ isAuthenticated: false, role: null });
     }
 
-    try{
-        jwt.verify(token, process.env.JWT_SECRET!);
-        return NextResponse.json({isAuthenticated: true})
-    }catch(error){
-        return NextResponse.json({isAuthenticated: false})
+    try {
+        const decodedToken = jwt.verify(token, process.env.JWT_SECRET!) as { email: string };
+        const user = await prisma.user.findUnique({
+            where: { email: decodedToken.email },
+            select: { role: true },
+        });
+
+        if (!user) {
+            return NextResponse.json({ isAuthenticated: false, role: null });
+        }
+
+        return NextResponse.json({ isAuthenticated: true, role: user.role });
+    } catch (error) {
+        return NextResponse.json({ isAuthenticated: false, role: null });
     }
 }
 

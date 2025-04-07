@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+"use server"
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { Storage } from "@google-cloud/storage";
@@ -11,7 +12,8 @@ const BUCKET_NAME = "bucket-videoar";
 
 export async function GET(){
     const products = await prisma.product.findMany();
-    return NextResponse.json({products}, {status: 200})
+    console.log(products);
+    return NextResponse.json({products}, {status: 200});
 }
 
 export async function POST(req: NextRequest) {
