@@ -65,3 +65,5 @@ export async function POST(req: NextRequest) {
     );
 }
 }
+
+//correct the bucke-name, i have to import it from the .env file not directly from here
