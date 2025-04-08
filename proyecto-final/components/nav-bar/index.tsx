@@ -19,7 +19,7 @@ const NavBar: React.FC = () => {
             const res = await fetch("/api/auth/user", { cache: "no-store" });
             const data = await res.json();
             setIsAuthenticated(data.isAuthenticated)
-            setRole(data.role)
+            setRole(data.user.role)
         }
         checkAuth();
     }, [pathname])

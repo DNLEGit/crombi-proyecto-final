@@ -14,15 +14,14 @@ export async function GET(req: NextRequest) {
     try {
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET!) as { email: string };
         const user = await prisma.user.findUnique({
-            where: { email: decodedToken.email },
-            select: { role: true },
+            where: { email: decodedToken.email }            
         });
 
         if (!user) {
             return NextResponse.json({ isAuthenticated: false, role: null });
         }
 
-        return NextResponse.json({ isAuthenticated: true, role: user.role });
+        return NextResponse.json({ isAuthenticated: true, user: user });
     } catch (error) {
         return NextResponse.json({ isAuthenticated: false, role: null });
     }

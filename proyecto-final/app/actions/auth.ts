@@ -35,11 +35,11 @@ export async function loginAction(
     }
     
     const role = user.role;
-
+    const id = user.userId;
     if (!process.env.JWT_SECRET) {
         throw new Error("JWT_SECRET is not defined in the environment variables");
     }
-    const token = jwt.sign({ email, role }, process.env.JWT_SECRET, { expiresIn: "1h" });
+    const token = jwt.sign({ email, role, id }, process.env.JWT_SECRET, { expiresIn: "1h" });
 
     ( await cookies()).set("token", token, { httpOnly: true, secure: true})
 

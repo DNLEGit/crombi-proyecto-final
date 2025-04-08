@@ -27,6 +27,7 @@ async function main() {
         data: {
             name: 'Admin User',
             email: 'admin@example.com',
+            imageUrl: "https://storage.cloud.google.com/bucket-videoar/admin-img.png",
             password: await bcrypt.hash("admin123", 10), // Ensure to hash it before storing in production
             role: 'ADMIN',
         },
@@ -39,6 +40,7 @@ async function main() {
         dictatorUsers.map(async (dictator) => ({
           name: dictator.name,
           email: dictator.email,
+          imageUrl: "https://storage.cloud.google.com/bucket-videoar/dictador_732_1296.webp",
           password: await bcrypt.hash('client123', 10),
           role: 'USER',
         }))
