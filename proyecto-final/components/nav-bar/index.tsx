@@ -10,7 +10,6 @@ import router from 'next/router';
 
 const NavBar: React.FC = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [showLoading, setShowLoading] = useState(false);
     const [role, setRole] = useState("");
     const pathname = usePathname();
 
@@ -20,12 +19,12 @@ const NavBar: React.FC = () => {
             const data = await res.json();
             setIsAuthenticated(data.isAuthenticated)
             setRole(data.user.role)
+            console.log(data.user.role)
         }
         checkAuth();
     }, [pathname])
 
     const handleLogout = async (): Promise<void> => {
-        setShowLoading(true);
         await logoutAction();
         // Add a 1-second delay
         setTimeout(() => {
@@ -89,11 +88,7 @@ const NavBar: React.FC = () => {
                             <div className='m-2 hover:text-[#8858ed] text-[16px]'>
                                 <Link href={'/admin'}>Admin Panel</Link>
                             </div>
-                            <div>
-                                <button onClick={handleLogout}>
-                                    Logout
-                                </button>
-                            </div>
+                           
                         </>
                     ) : null}
 
@@ -105,9 +100,11 @@ const NavBar: React.FC = () => {
                             <Link href={'/user'}>User</Link>
                         </div>
                         <div>
-                            <button onClick={logoutAction}>
-                                logout
-                            </button>
+                        <div className='m-2 hover:text-[#8858ed]'>
+                                <button onClick={handleLogout}>
+                                    Logout
+                                </button>
+                            </div>
                         </div>
                 
                         <div className='flex justify-center items-center max-w-full'>
@@ -122,7 +119,8 @@ const NavBar: React.FC = () => {
                         </div>
                     </>
                 ) : (
-                    <Link href="/login">Login</Link>
+                    <div className='m-2 hover:text-[#8858ed] text-[16px]'><Link href="/login">Login</Link></div>
+                    
                 )}
 
                 </div>

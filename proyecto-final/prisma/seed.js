@@ -27,7 +27,7 @@ async function main() {
         data: {
             name: 'Admin User',
             email: 'admin@example.com',
-            imageUrl: "https://storage.cloud.google.com/bucket-videoar/admin-img.png",
+            imageUrl: "https://storage.googleapis.com/bucket-videoar/3caf85ad-c2c8-41b1-b055-ec1475275f2f-1744210229787.jpg",
             password: await bcrypt.hash("admin123", 10), // Ensure to hash it before storing in production
             role: 'ADMIN',
         },
@@ -38,13 +38,13 @@ async function main() {
     // Create dictator client users
     const dictatorUserData = await Promise.all(
         dictatorUsers.map(async (dictator) => ({
-          name: dictator.name,
-          email: dictator.email,
-          imageUrl: "https://storage.cloud.google.com/bucket-videoar/dictador_732_1296.webp",
-          password: await bcrypt.hash('client123', 10),
-          role: 'USER',
+            name: dictator.name,
+            email: dictator.email,
+            imageUrl: "https://storage.googleapis.com/bucket-videoar/cca86d9c-77a6-4b0d-850f-c217d68d3d2d-1744215630895.jpg",
+            password: await bcrypt.hash('client123', 10),
+            role: 'USER',
         }))
-      );
+    );
 
     const createdUsers = await prisma.user.createMany({
         data: dictatorUserData,

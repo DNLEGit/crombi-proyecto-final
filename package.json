@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@auth0/nextjs-auth0": "^3.7.0",
+    "@google-cloud/storage": "^7.16.0",
     "zod": "^3.24.2"
   }
 }
