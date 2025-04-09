@@ -10,15 +10,16 @@ export default function Admin() {
     const [categories, setCategories] = useState<Array<{ categoryId: string; name: string }>>([]);
     const [image, setImage] = useState<File | null>(null);
 
+    //fetches all the categories to display them when creating a new product
     useEffect(() => {
         fetch("/api/categories")
             .then((res) => res.json())
             .then((data) => {
-                console.log("categories fetched", data.categories);
                 setCategories(data.categories);
             });
     }, []);
-
+    //method used to create a new product
+    //it sends a post request to the api with the data of the new product
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         const formData = new FormData();
@@ -32,7 +33,8 @@ export default function Admin() {
             method: "POST",
             body: formData,
         });
-
+        //if everything its ok then it will alert the user that the product was created
+        //and it will reset the form
         if (res.ok) {
             alert("Producto creado!");
             setName("");
@@ -42,6 +44,7 @@ export default function Admin() {
             setImage(null);
         }
     };
+
 
     return (
         <main className="min-h-screen bg-gray-950 flex flex-col items-center justify-center p-8">
