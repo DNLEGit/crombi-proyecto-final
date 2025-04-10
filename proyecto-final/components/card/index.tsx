@@ -11,7 +11,7 @@ export default function Card(props: Product) {
         <img
           src={props.image}
           alt={props.name}
-          className="w-full h-full object-cover"
+          className="w-full h-full object-contain"
         />
       </div>
 
