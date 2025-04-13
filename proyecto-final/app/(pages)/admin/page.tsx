@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
+import { Product } from "@prisma/client";
 import { useState, useEffect } from "react";
 
 export default function Admin() {
@@ -10,6 +11,7 @@ export default function Admin() {
     const [categories, setCategories] = useState<Array<{ categoryId: string; name: string }>>([]);
     const [image, setImage] = useState<File | null>(null);
 
+    const [products, setProducts] = useState<Array<Product>>([]);
     //fetches all the categories to display them when creating a new product
     useEffect(() => {
         fetch("/api/categories")
@@ -18,6 +20,7 @@ export default function Admin() {
                 setCategories(data.categories);
             });
     }, []);
+
     //method used to create a new product
     //it sends a post request to the api with the data of the new product
     const handleSubmit = async (e: React.FormEvent) => {
@@ -120,6 +123,9 @@ export default function Admin() {
                     Crear Producto
                 </button>
             </form>
+
+
+
         </main>
     );
 }

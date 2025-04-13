@@ -8,7 +8,9 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 const PAGE_SIZE = 10;
 
+
 export default function Products() {
+    // const session = 
     const [products, setProducts] = useState<Product[]>([]);
     const [total, setTotal] = useState(0);
 
@@ -76,8 +78,8 @@ export default function Products() {
                         router.push(`${pathname}?${params.toString()}`);
                     }}
                     className={`px-4 py-2 rounded-md ${page <= 1
-                            ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-                            : "bg-gray-800 text-white hover:bg-gray-700"
+                        ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+                        : "bg-gray-800 text-white hover:bg-gray-700"
                         }`}
                 >
                     Previous
@@ -93,8 +95,8 @@ export default function Products() {
                             key={i}
                             href={`${pathname}?${params.toString()}`}
                             className={`px-4 py-2 rounded-md ${i + 1 === page
-                                    ? "bg-purple-600 text-white"
-                                    : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                                ? "bg-purple-600 text-white"
+                                : "bg-gray-800 text-gray-300 hover:bg-gray-700"
                                 }`}
                         >
                             {i + 1}
@@ -111,8 +113,8 @@ export default function Products() {
                         router.push(`${pathname}?${params.toString()}`);
                     }}
                     className={`px-4 py-2 rounded-md ${page >= totalPages
-                            ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-                            : "bg-gray-800 text-white hover:bg-gray-700"
+                        ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+                        : "bg-gray-800 text-white hover:bg-gray-700"
                         }`}
                 >
                     Next
