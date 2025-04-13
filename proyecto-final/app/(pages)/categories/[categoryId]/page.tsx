@@ -5,29 +5,31 @@ import Card from "@/components/card";
 import { Product } from "@prisma/client";
 import { useParams } from "next/navigation";
 
-export default function ClientCategoryPage({ params }: { params: { categoryId: string } }) {
-    console.log(params)
-    const [categoryProducts, setCategoryProducts] = useState([]);
+export default function ClientCategoryPage() {
+    const { categoryId } = useParams() as { categoryId: string }; // ⬅️ Strong typing
+    const [categoryProducts, setCategoryProducts] = useState<Product[]>([]);
+
     useEffect(() => {
         const fetchCategoryProducts = async () => {
             try {
-                const response = await fetch(`/api/categories/${params.categoryId}`);
+                const response = await fetch(`/api/categories/${categoryId}`);
                 if (!response.ok) throw new Error("Failed to fetch category products");
+
                 const data = await response.json();
-                setCategoryProducts(data.categoryProducts);
-                console.log(data.categoryProducts);
+                setCategoryProducts(data.categoryProducts); // ⬅️ Make sure your API returns this key                
             } catch (error) {
                 console.error("Error fetching category products:", error);
             }
         };
 
-        fetchCategoryProducts();
-    }, [params.categoryId]);
+        if (categoryId) {
+            fetchCategoryProducts();
+        }
+    }, [categoryId]);
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen bg-gray-950 text-white">
-            <h1 className="text-4xl font-bold mb-6">{ } Category Page</h1>
-            <div className="bg-gray-950 flex flex-row gap-2">
+        <div className="flex flex-col items-center justify-start min-h-screen w-screen bg-gray-950 text-white py-8 px-4">
+            <div className="flex flex-wrap justify-center gap-4">
                 {categoryProducts.map((product: Product) => (
                     <Card key={product.productId} {...product} />
                 ))}

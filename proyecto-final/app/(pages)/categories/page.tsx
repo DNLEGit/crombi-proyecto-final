@@ -9,19 +9,14 @@ export default function CategoriesPage() {
 
     const [categories, setCategories] = useState<Category[]>([]);
     useEffect(() => {
-        // const items = [{ categoryId: "1", name: "Category 1", categoryImageUrl: "https://example.com/image.jpg" },
-        // { categoryId: "2", name: "Category 2", categoryImageUrl: "https://example.com/image.jpg" },
-        // { categoryId: "3", name: "Category 3", categoryImageUrl: "https://example.com/image.jpg" },
-        // { categoryId: "4", name: "Category 4", categoryImageUrl: "https://example.com/image.jpg" }
-        // ];
 
+        //fetches the categories and then assing the value to categories
         const fetchCategories = async () => {
             try {
                 const response = await fetch(`/api/categories`);
                 if (!response.ok) throw new Error("Failed to fetch categories");
                 const data = await response.json();
                 setCategories(data.categories);
-                console.log(data.categories);
             } catch (error) {
                 console.error("Error fetching categories:", error);
             }

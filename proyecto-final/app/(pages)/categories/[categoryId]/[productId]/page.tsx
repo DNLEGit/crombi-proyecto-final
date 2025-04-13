@@ -10,21 +10,19 @@ const ProductPage = () => {
 
     useEffect(() => {
         const fetchProduct = async () => {
-            if (!params?.productId) return;
             try {
-                const response = await fetch(`/api/products/${params.productId}`);
-                if (!response.ok) throw new Error("Failed to fetch category products");
-                const data = await response.json();
-                if (!data) throw new Error("No data found for this product")
+                const res = await fetch(`/api/categories/${params.categoryId}/${params.productId}`);
+                if (!res.ok) throw new Error("Failed to fetch product");
+                const data = await res.json();
                 setProductToDisplay(data.product);
-                console.log(data.product);
-            } catch (error) {
-                console.error("Error fetching category products:", error);
+
+            } catch (err) {
+                console.error(err);
             }
         };
 
-        fetchProduct();
-    }, [params.productId]);
+        if (params.categoryId && params.productId) fetchProduct();
+    }, [params.categoryId, params.productId]);
 
     return (
         <div>

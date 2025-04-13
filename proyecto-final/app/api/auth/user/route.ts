@@ -106,7 +106,7 @@ export async function PUT(request: NextRequest) {
     }
 
     const updatedUser = await prisma.user.update({
-        where: { userId: user.userId }, // Corrected the field name to 'id'
+        where: { userId: user.userId },
         data: {
             name: name || user.name,
             imageUrl: user.imageUrl,

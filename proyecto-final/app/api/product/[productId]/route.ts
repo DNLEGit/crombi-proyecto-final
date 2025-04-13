@@ -4,9 +4,11 @@ import { PrismaClient } from "@prisma/client";
 
 import { NextResponse, NextRequest } from "next/server";
 
+const prisma = new PrismaClient();
+
 export async function GET(request: NextRequest, { params }: { params: { producId: string } }) {
     const { producId: productId } = params;
-    const prisma = new PrismaClient();
+
     try {
         const product = await prisma.product.findUnique({
             where: {
@@ -19,20 +21,42 @@ export async function GET(request: NextRequest, { params }: { params: { producId
         return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
 }
-export async function DELETE(request: NextRequest, { params }: { params: { porductId: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: { productId: string } }) {
+    const productId = params.productId;
 
-    const productId = params.porductId;
-    const prisma = new PrismaClient();
     try {
         const product = await prisma.product.delete({
             where: {
-                productId: productId,
+                productId
             },
         });
-        if (!product) return NextResponse.json({ message: "Product not found" }, { status: 404 });
+
+        if (!product) {
+            return NextResponse.json({ message: "Product not found" }, { status: 404 });
+        }
+
         return NextResponse.json({ message: "Product deleted successfully" }, { status: 200 });
     } catch (error) {
+        console.error("Error deleting product:", error);
         return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
+}
 
+export async function PUT(request: NextRequest, { params }: { params: { productId: string } }) {
+    const productId = params.productId;
+
+    try {
+        const body = await request.json();
+        const updatedProduct = await prisma.product.update({
+            where: {
+                productId,
+            },
+            data: body,
+        });
+
+        return NextResponse.json({ product: updatedProduct }, { status: 200 });
+    } catch (error) {
+        console.error("Error updating product:", error);
+        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+    }
 }

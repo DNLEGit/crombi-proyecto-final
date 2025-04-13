@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-
+import nookies from "nookies";
 import Card from "@/components/card";
 import { Product } from "@prisma/client";
 import { useEffect, useState } from "react";
@@ -10,7 +10,22 @@ const PAGE_SIZE = 10;
 
 
 export default function Products() {
-    // const session = 
+    const [role, setRole] = useState("");
+
+
+    useEffect(() => {
+        async function checkAuth() {
+            const res = await fetch("/api/auth/user", { cache: "no-store" });
+            const data = await res.json();
+
+            setRole(data.user?.role || "")
+        }
+        checkAuth();
+    },)
+
+
+
+
     const [products, setProducts] = useState<Product[]>([]);
     const [total, setTotal] = useState(0);
 
@@ -63,7 +78,7 @@ export default function Products() {
 
             <div className="grid grid-cols-5 gap-6 bg-gray-950 p-2">
                 {products.map((product: Product) => (
-                    <Card key={product.productId} {...product} />
+                    <Card role={role} key={product.productId} {...product} />
                 ))}
             </div>
 
