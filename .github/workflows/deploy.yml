@@ -28,17 +28,17 @@ jobs:
       - name: Configurar Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
-          project_id: ecommerce-crombie    # Tu ID de proyecto en GCP
+          project_id: ${{ secrets.GCP_PROJECT }}   # Tu ID de proyecto en GCP
 
       # Paso 4: Autenticar Docker con Artifact Registry
       - name: Autenticar Docker con Artifact Registry
         run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
-      # # Paso 5: Construir y enviar imagen a Artifact Registry
-      # - name: Construir y enviar imagen a Artifact Registry
-      #   run: |
-      #     docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app .
-      #     docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app
+      # Paso 5: Construir y enviar imagen a Artifact Registry
+      - name: Construir y enviar imagen a Artifact Registry
+        run: |
+          docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app .
+          docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app
 
       # # Paso 6: Desplegar en Cloud Run
       # - name: Desplegar en Cloud Run
