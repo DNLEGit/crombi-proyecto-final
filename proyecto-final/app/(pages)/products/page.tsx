@@ -76,14 +76,14 @@ export default function Products() {
             />
 
             {/* Product Cards */}
-            <div className="grid grid-cols-5 gap-6 p-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-6">
                 {products.map((product: Product) => (
                     <Card role={role} key={product.productId} {...product} />
                 ))}
             </div>
 
             {/* Pagination Controls */}
-            <div className="flex justify-center items-center gap-2 my-6 bg-transparent">
+            <div className="fixed bottom-0 left-0 w-full flex justify-center items-center gap-2 bg-transparent py-4">
                 {/* Previous Button */}
                 <button
                     disabled={page <= 1}

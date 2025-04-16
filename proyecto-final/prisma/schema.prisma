@@ -14,7 +14,7 @@ model User {
   password   String
   imageUrl   String   @default("")
   cart       Cart?    @relation(fields: [cartId], references: [id])
-  cartId     String   @unique
+  cartId     String?  @unique
   role       Role     @default(USER)
   createdAt  DateTime @default(now())
   modifiedAt DateTime @default(now())

@@ -25,7 +25,7 @@ export async function GET(request: NextRequest, { params }: { params: { producId
 }
 //Delete product
 export async function DELETE(request: NextRequest, { params }: { params: { productId: string } }) {
-    const { productId: producId } = params;
+    const { productId: producId } = await params;
 
     try {
         const product = await prisma.product.delete({
@@ -46,21 +46,22 @@ export async function DELETE(request: NextRequest, { params }: { params: { produ
 }
 //Edit product
 export async function PUT(request: NextRequest, { params }: { params: { productId: string } }) {
-    const productId = params.productId;
+    const { productId: producId } = await params;
     const formData = await request.formData();
     const productName = formData.get("name") as String;
     const productDescription = formData.get("description") as String;
     const productStock = Number(formData.get("stock"));
     const productPrice = Number(formData.get("price"));
     const productImage = formData.get("image") as File;
-
+    console.log("product name", productName)
     const product = await prisma.product.findUnique({
-        where:
-            { productId: productId }
+        where: {
+            productId: producId,
+        },
     });
     if (!product) return NextResponse.json({ error: 'product not found' }, { status: 404 });
 
-
+    console.log("Producto a modificar", product)
 
     let imageUrl: string | undefined;
 
@@ -78,21 +79,21 @@ export async function PUT(request: NextRequest, { params }: { params: { productI
 
     try {
 
+        const dataToUpdate: any = {}
+
+        if (productName) dataToUpdate.name = productName.toString()
+        if (imageUrl) dataToUpdate.image = imageUrl
+        if (productDescription) dataToUpdate.description = productDescription.toString()
+        if (productPrice !== undefined) dataToUpdate.price = productPrice
+        if (productStock !== undefined) dataToUpdate.stock = productStock
+
         const updatedProduct = await prisma.product.update({
             where: {
-                productId: product.productId
-
+                productId: product.productId,
             },
-            data: {
-                name: product.name || productName?.toString(),
-                image: product.image || imageUrl,
-                description: product.description || productDescription?.toString(),
-                price: product.price || productPrice,
-                stock: product.stock || productStock,
-            },
-
-        });
-
+            data: dataToUpdate,
+        })
+        console.log("producto modificado:", updatedProduct)
         return NextResponse.json({ product: updatedProduct }, { status: 200 });
     } catch (error) {
         console.error("Error updating product:", error);

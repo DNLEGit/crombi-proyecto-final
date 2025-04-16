@@ -67,7 +67,7 @@ const ProductUpdatePage = () => {
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-300" htmlFor="name">
-                            Full Name
+                            Product name
                         </label>
                         <input
                             className="mt-1 p-2 w-full bg-gray-700 
@@ -79,7 +79,7 @@ const ProductUpdatePage = () => {
 
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-300" htmlFor="password">
-                            Password
+                            Description
                         </label>
                         <textarea
                             className="mt-1 p-2 w-full bg-gray-700 border border-gray-600 rounded-md text-white"
@@ -107,7 +107,7 @@ const ProductUpdatePage = () => {
 
                     <div className="mb-4">
                         <label className="block text-sm font-medium text-gray-300" htmlFor="name">
-                            Price
+                            Stock
                         </label>
                         <input
                             className="mt-1 p-2 w-full bg-gray-700 
