@@ -6,7 +6,7 @@ import { NextResponse, NextRequest } from "next/server";
 
 export async function GET(
     request: NextRequest,
-    { params }: { params: { categoryId: string; productId: string } }
+    { params }: { params: { productId: string } }
 ) {
     const { productId } = params;
     const prisma = new PrismaClient();
