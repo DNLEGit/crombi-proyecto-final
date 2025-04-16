@@ -1,20 +1,13 @@
 import { PrismaClient } from "@prisma/client";
-import { NextResponse, NextRequest } from "next/server";
-
-// 👇 Tu tipo Context personalizado
-type Context = {
-    params: Promise<{ path: string[] }> | { path: string[] };
-};
+import { NextResponse } from "next/server";
 
 const prisma = new PrismaClient();
 
-export async function GET(request: NextRequest, context: Context): Promise<NextResponse> {
-    // 👇 Aseguramos que params no sea una promesa
-    const params = await Promise.resolve(context.params);
-
-    // Asumimos que categoryId y productId vienen en el path: ['categoryId', 'productId']
-    const [productId] = params.path;
-
+export async function GET(
+    request: Request,
+    { params }: { params: { producId: string } }
+) {
+    const { producId: productId } = params;
     try {
         const product = await prisma.product.findUnique({
             where: { productId },
