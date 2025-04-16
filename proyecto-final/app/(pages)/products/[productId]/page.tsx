@@ -125,7 +125,7 @@ const ProductUpdatePage = () => {
                             type="file"
                             accept="image/*"
                             onChange={(e) => setImageUrl(e.target.files?.[0] || null)}
-                            required
+
                             className="w-full p-2 bg-gray-800 text-white rounded border border-gray-600 file:bg-purple-600 file:border-none file:px-4 file:py-2 file:rounded file:text-white file:cursor-pointer file:transition hover:file:opacity-80"
                         />
                     </div>

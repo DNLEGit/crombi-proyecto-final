@@ -28,10 +28,15 @@ export default function ClientCategoryPage() {
     }, [categoryId]);
 
     return (
-        <div className="flex flex-col items-center justify-start min-h-screen w-screen bg-gray-950 text-white py-8 px-4">
-            <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-col items-center justify-start min-h-screen w-screen bg-translucid text-white py-8 px-4">
+            <img
+                src="https://storage.googleapis.com/bucket-videoar/b0f4566a-acae-4672-8c66-e36661509207.png"
+                alt="Background"
+                className="absolute bot-0 left-0 w-full h-full object-cover -z-10"
+            />
+            <div className="flex flex-wrap  justify-center gap-4">
                 {categoryProducts.map((product: Product) => (
-                    <Card key={product.productId} {...product} />
+                    <Card key={product.productId} {...product} role={"CLIENT"} />
                 ))}
             </div>
         </div>

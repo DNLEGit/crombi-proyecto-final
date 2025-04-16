@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://root:root@localhost:3306/videoar-db"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -12,7 +12,7 @@ model User {
   name       String
   email      String   @unique
   password   String
-  imageUrl   String   @default("")
+  imageUrl   String   @default("https://storage.googleapis.com/bucket-videoar/cca86d9c-77a6-4b0d-850f-c217d68d3d2d-1744215630895.jpg")
   cart       Cart?    @relation(fields: [cartId], references: [id])
   cartId     String?  @unique
   role       Role     @default(USER)

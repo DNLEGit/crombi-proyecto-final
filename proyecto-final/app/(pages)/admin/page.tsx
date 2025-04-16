@@ -4,6 +4,7 @@ import { Product } from "@prisma/client";
 import { useState, useEffect } from "react";
 
 export default function Admin() {
+    const [loading, setLoading] = useState(false);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
@@ -26,6 +27,7 @@ export default function Admin() {
     //it sends a post request to the api with the data of the new product
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        setLoading(true)
         const formData = new FormData();
         formData.append("name", name);
         formData.append("description", description);
@@ -45,9 +47,11 @@ export default function Admin() {
             setName("");
             setDescription("");
             setPrice("");
+            setStock("")
             setCategoryId("");
             setImage(null);
         }
+        setLoading(false)
     };
 
 
@@ -132,9 +136,13 @@ export default function Admin() {
 
                 <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-purple-600 via-purple-400 to-purple-800 text-white px-4 py-2 font-bold rounded-md hover:opacity-80 transition"
+                    disabled={loading}
+                    className={`w-full px-4 py-2 font-bold rounded-md transition ${loading
+                        ? "bg-gray-700 cursor-not-allowed text-gray-400"
+                        : "bg-gradient-to-r from-purple-600 via-purple-400 to-purple-800 text-white hover:opacity-80"
+                        }`}
                 >
-                    Crear Producto
+                    {loading ? "Creando..." : "Crear Producto"}
                 </button>
             </form>
 
