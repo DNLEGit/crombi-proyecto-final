@@ -1,0 +1,15 @@
+name: Deploy en Cloud Run
+
+on:
+  push:
+    branches:
+      - main  # Esto lo ejecutará cada vez que empujes cambios a la rama principal
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Clonar el repositorio
+      - name: Clonar el repositorio
+        uses: actions/checkout@v3
