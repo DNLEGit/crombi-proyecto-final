@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function WeeklyDeals() {
     return (
-        <section className="bg-translucid py-16 rounded-2xl relative">
+        <section className="bg-translucid py-16 rounded-2xl relative ">
             <div className="max-w-7xl mx-auto px-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
                     <div className="w-full h-[519px] relative">
@@ -37,7 +37,7 @@ export default function WeeklyDeals() {
                 </div>
 
                 {/* Sección que se superpone a las imágenes */}
-                <div className="absolute top-[75%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/3 text-center bg-[#8858ed] p-8 rounded-2xl z-10">
+                <div className=" transition-transform duration-300 hover:scale-105 absolute top-[75%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/3 text-center bg-[#8858ed] p-8 rounded-2xl z-10">
                     <h2 className="text-xl font-semibold text-white">THIS WEEK'S DEALS</h2>
                     <p className="text-[140px] leading-none font-bold text-white">10%</p>
                     <p className="text-3xl text-white">off all FromSoftware games</p>

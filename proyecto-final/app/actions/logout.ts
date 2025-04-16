@@ -1,9 +1,10 @@
 "use server"
-import {cookies} from "next/headers";
-import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
 
 
-export async function logoutAction(){
-    (await cookies()).set("token", "", {expires : new Date(0)});
-    redirect("/");
+
+export async function logoutAction() {
+    (await cookies()).set("token", "", { expires: new Date(0) });
+    revalidatePath("/");
 }

@@ -2,20 +2,21 @@
 "use client"
 import Link from 'next/link';
 import { useEffect, useState } from "react"
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React from 'react';
 import { logoutAction } from '@/app/actions/logout';
-import router from 'next/router';
+
 
 
 const NavBar: React.FC = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [role, setRole] = useState("");
     const pathname = usePathname();
+    const router = useRouter();
 
     useEffect(() => {
         async function checkAuth() {
-            const res = await fetch("/api/auth/user", { cache: "no-store" });
+            const res = await fetch("/api/auth/user", { cache: "no-store", credentials: "include" });
             const data = await res.json();
             setIsAuthenticated(data.isAuthenticated)
             setRole(data.user?.role || "")
@@ -25,10 +26,9 @@ const NavBar: React.FC = () => {
 
     const handleLogout = async (): Promise<void> => {
         await logoutAction();
-        // Add a 1-second delay
-        setTimeout(() => {
-            router.push("/");
-        }, 1000);
+
+        router.refresh();
+        router.push("/login")
     };
 
     return (
@@ -134,6 +134,10 @@ const NavBar: React.FC = () => {
 export default NavBar;
 
 
+
+function checkAuth() {
+    throw new Error('Function not implemented.');
+}
 // Removed conflicting local useState function
 //todo- ponerle un icono al carrito
 //poner icono de usuario
