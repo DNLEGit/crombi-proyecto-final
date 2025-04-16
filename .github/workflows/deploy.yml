@@ -40,7 +40,7 @@ jobs:
           docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app .
           docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app
 
-      # Paso 6: Desplegar en Cloud Run
+      # Paso 6: Desplegar en Cloud  Run
       - name: Desplegar en Cloud Run
         run: |
           gcloud run deploy mi-app \
