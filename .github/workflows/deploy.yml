@@ -28,7 +28,7 @@ jobs:
       - name: Configurar Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
         with:
-          project_id: ${{ secrets.GCP_PROJECT }}  # Tu ID de proyecto en GCP
+          project_id: testing@ecommerce-crombie.iam.gserviceaccount.com    # Tu ID de proyecto en GCP
 
       # # Paso 4: Autenticar Docker con Artifact Registry
       # - name: Autenticar Docker con Artifact Registry
