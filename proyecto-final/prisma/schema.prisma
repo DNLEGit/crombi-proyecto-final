@@ -8,39 +8,50 @@ datasource db {
 }
 
 model User {
-  userId     String   @id @unique() @default(uuid())
+  userId     String   @id @default(uuid())
   name       String
   email      String   @unique
   password   String
   imageUrl   String   @default("")
+  cart       Cart?    @relation(fields: [cartId], references: [id])
+  cartId     String   @unique
   role       Role     @default(USER)
   createdAt  DateTime @default(now())
   modifiedAt DateTime @default(now())
 }
 
-enum Role {
-  ADMIN
-  USER
+model Cart {
+  id       String    @id @default(uuid())
+  userId   String    @unique
+  products Product[] @relation("CartProducts")
+  total    Int
+  User     User[]
 }
 
 model Product {
-  productId   String   @id @unique @default(uuid())
+  productId   String   @id @default(uuid())
   name        String
   description String   @db.Text
   price       Int
-  stock       Int
+  stock       Int      @default(0)
   categoryId  String   @default("")
   image       String   @default("")
   createdAt   DateTime @default(now())
   modifiedAt  DateTime @default(now())
   category    Category @relation(fields: [categoryId], references: [categoryId])
+  carts       Cart[]   @relation("CartProducts")
 
   @@index([categoryId], map: "Product_categoryId_fkey")
 }
 
 model Category {
-  categoryId       String    @id @unique @default(uuid())
+  categoryId       String    @id @default(uuid())
   name             String
   categoryImageUrl String    @default("")
   products         Product[]
+}
+
+enum Role {
+  ADMIN
+  USER
 }

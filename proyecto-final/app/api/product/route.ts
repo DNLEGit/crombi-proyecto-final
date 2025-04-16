@@ -45,6 +45,7 @@ export async function POST(req: NextRequest) {
         const name = formData.get("name") as string;
         const description = formData.get("description") as string;
         const price = parseInt(formData.get("price") as string, 10);
+        const stock = parseInt(formData.get("stock") as string, 10)
         const categoryId = formData.get("category") as string;
         const image = formData.get("image") as File | null;
         //if any of the fields is missing it interrupsts the creation and return the issue
@@ -68,7 +69,7 @@ export async function POST(req: NextRequest) {
 
         // Saves the product on the db
         const product = await prisma.product.create({
-            data: { name, description, price, categoryId, image: imageUrl },
+            data: { name, description, price, stock, categoryId, image: imageUrl },
         });
 
         return NextResponse.json(

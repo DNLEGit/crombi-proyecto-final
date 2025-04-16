@@ -1,10 +1,12 @@
 "use server";
 
 import { PrismaClient } from "@prisma/client";
-
+import { Storage } from '@google-cloud/storage';
 import { NextResponse, NextRequest } from "next/server";
 
 const prisma = new PrismaClient();
+const storage = new Storage();
+const BUCKET_NAME = 'bucket-videoar';
 
 export async function GET(request: NextRequest, { params }: { params: { producId: string } }) {
     const { producId: productId } = params;
@@ -21,13 +23,14 @@ export async function GET(request: NextRequest, { params }: { params: { producId
         return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
 }
+//Delete product
 export async function DELETE(request: NextRequest, { params }: { params: { productId: string } }) {
-    const productId = params.productId;
+    const { productId: producId } = params;
 
     try {
         const product = await prisma.product.delete({
             where: {
-                productId
+                productId: producId,
             },
         });
 
@@ -41,17 +44,53 @@ export async function DELETE(request: NextRequest, { params }: { params: { produ
         return NextResponse.json({ message: "Internal server error" }, { status: 500 });
     }
 }
-
+//Edit product
 export async function PUT(request: NextRequest, { params }: { params: { productId: string } }) {
     const productId = params.productId;
+    const formData = await request.formData();
+    const productName = formData.get("name") as String;
+    const productDescription = formData.get("description") as String;
+    const productStock = Number(formData.get("stock"));
+    const productPrice = Number(formData.get("price"));
+    const productImage = formData.get("image") as File;
+
+    const product = await prisma.product.findUnique({
+        where:
+            { productId: productId }
+    });
+    if (!product) return NextResponse.json({ error: 'product not found' }, { status: 404 });
+
+
+
+    let imageUrl: string | undefined;
+
+    if (productImage) {
+        const arrayBuffer = await productImage?.arrayBuffer(); // 👈 Ensure userImage is a File or Blob
+        const buffer = Buffer.from(arrayBuffer);
+        const fileName = `${product.productId}-${Date.now()}.jpg`; // Generate a unique file name
+        const file = storage.bucket(BUCKET_NAME).file(fileName);
+        await file.save(Buffer.from(buffer), {
+            metadata: { contentType: 'image/jpeg' }, // Adjust content type if needed
+            public: true,
+        });
+        imageUrl = `https://storage.googleapis.com/${BUCKET_NAME}/${fileName}`;
+    }
 
     try {
-        const body = await request.json();
+
         const updatedProduct = await prisma.product.update({
             where: {
-                productId,
+                productId: product.productId
+
             },
-            data: body,
+            data: {
+                name: product.name || productName?.toString(),
+                image: product.image || imageUrl,
+                description: product.description || productDescription?.toString(),
+                price: product.price || productPrice,
+                stock: product.stock || productStock,
+            },
+
         });
 
         return NextResponse.json({ product: updatedProduct }, { status: 200 });

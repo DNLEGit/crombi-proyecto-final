@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use server"
+
 import { prisma } from "@/lib/prisma";
 import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
@@ -9,7 +10,7 @@ import { Storage } from '@google-cloud/storage';
 
 const storage = new Storage();
 const BUCKET_NAME = 'bucket-videoar';
-
+//Get user
 export async function GET(req: NextRequest) {
     const token = (await cookies()).get("token")?.value;
 
@@ -32,7 +33,7 @@ export async function GET(req: NextRequest) {
         return NextResponse.json({ isAuthenticated: false, role: null });
     }
 }
-
+//Create user
 export async function POST(req: NextRequest) {
 
     const imageUrl = "https://storage.googleapis.com/bucket-videoar/cca86d9c-77a6-4b0d-850f-c217d68d3d2d-1744215630895.jpg";
@@ -67,16 +68,13 @@ export async function POST(req: NextRequest) {
     )
 
 }
-
+//Edit user
 export async function PUT(request: NextRequest) {
     const token = (await cookies()).get("token")?.value;
-    console.log(token)
     const formData = await request.formData();
     const userImage = formData.get("image") as File;
     const password = formData.get("password") as string;
     const name = formData.get("name") as string;
-
-    console.log("FormData Data: ", name, password, userImage)
 
     if (!token) {
         return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
@@ -89,8 +87,6 @@ export async function PUT(request: NextRequest) {
     if (!user) {
         return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
-
-    console.log("User: ", user)
 
 
     if (userImage) {

@@ -23,6 +23,7 @@ export default function ProductDescription({ product }: { product: Product }) {
                         </p>
                         <p className="text-base text-gray-200 mb-4">{product.description}</p>
                         <p className="text-lg font-semibold text-purple-300 mb-4">${product.price.toFixed(2)}</p>
+                        <p>Stock: {product.stock}</p>
                     </div>
 
                     <button className="bg-gradient-to-r from-purple-600 via-purple-400 to-purple-800 text-white px-6 py-3 font-bold rounded-md hover:opacity-80 mt-4 w-full">

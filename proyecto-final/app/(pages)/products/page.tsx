@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
-import nookies from "nookies";
 import Card from "@/components/card";
 import { Product } from "@prisma/client";
 import { useEffect, useState } from "react";
@@ -8,23 +7,17 @@ import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 const PAGE_SIZE = 10;
 
-
 export default function Products() {
     const [role, setRole] = useState("");
-
 
     useEffect(() => {
         async function checkAuth() {
             const res = await fetch("/api/auth/user", { cache: "no-store" });
             const data = await res.json();
-
-            setRole(data.user?.role || "")
+            setRole(data.user?.role || "");
         }
         checkAuth();
-    },)
-
-
-
+    }, []);
 
     const [products, setProducts] = useState<Product[]>([]);
     const [total, setTotal] = useState(0);
@@ -36,7 +29,6 @@ export default function Products() {
     const search = searchParams.get("search") || "";
     const page = parseInt(searchParams.get("page") || "1");
 
-    // Fetch products based on current search and page
     useEffect(() => {
         const fetchProducts = async () => {
             try {
@@ -55,12 +47,11 @@ export default function Products() {
         fetchProducts();
     }, [search, page]);
 
-    // Handle search input and update URL params
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value.toLowerCase();
         const params = new URLSearchParams(searchParams.toString());
         params.set("search", value);
-        params.set("page", "1"); // Reset to first page when searching
+        params.set("page", "1");
         router.replace(`${pathname}?${params.toString()}`);
     };
 
@@ -68,22 +59,31 @@ export default function Products() {
 
     return (
         <div>
+            {/* Background Image */}
+            <img
+                src="https://storage.googleapis.com/bucket-videoar/b0f4566a-acae-4672-8c66-e36661509207.png"
+                alt="Background"
+                className="absolute bot-0 left-0 w-full h-full object-cover -z-10"
+            />
+
+            {/* Search Input */}
             <input
-                className="w-[90%] mx-auto block p-2 mb-4 rounded-lg bg-gray-800 text-white m-2"
+                className="w-[90%] mx-auto block p-2 mb-4 rounded-lg text-white bg-white/10 backdrop-blur-md placeholder-white m-2"
                 type="text"
                 placeholder="Search products"
                 value={search}
                 onChange={handleSearch}
             />
 
-            <div className="grid grid-cols-5 gap-6 bg-gray-950 p-2">
+            {/* Product Cards */}
+            <div className="grid grid-cols-5 gap-6 p-2">
                 {products.map((product: Product) => (
                     <Card role={role} key={product.productId} {...product} />
                 ))}
             </div>
 
             {/* Pagination Controls */}
-            <div className="flex justify-center items-center gap-2 my-6">
+            <div className="flex justify-center items-center gap-2 my-6 bg-transparent">
                 {/* Previous Button */}
                 <button
                     disabled={page <= 1}
@@ -92,9 +92,9 @@ export default function Products() {
                         params.set("page", (page - 1).toString());
                         router.push(`${pathname}?${params.toString()}`);
                     }}
-                    className={`px-4 py-2 rounded-md ${page <= 1
-                        ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-                        : "bg-gray-800 text-white hover:bg-gray-700"
+                    className={`px-4 py-2 rounded-md transition-all ${page <= 1
+                        ? "bg-transparent text-gray-400 cursor-not-allowed"
+                        : "bg-white/10 text-white hover:bg-white/20 backdrop-blur"
                         }`}
                 >
                     Previous
@@ -109,9 +109,9 @@ export default function Products() {
                         <a
                             key={i}
                             href={`${pathname}?${params.toString()}`}
-                            className={`px-4 py-2 rounded-md ${i + 1 === page
+                            className={`px-4 py-2 rounded-md transition-all ${i + 1 === page
                                 ? "bg-purple-600 text-white"
-                                : "bg-gray-800 text-gray-300 hover:bg-gray-700"
+                                : "bg-white/10 text-white hover:bg-white/20 backdrop-blur"
                                 }`}
                         >
                             {i + 1}
@@ -127,15 +127,14 @@ export default function Products() {
                         params.set("page", (page + 1).toString());
                         router.push(`${pathname}?${params.toString()}`);
                     }}
-                    className={`px-4 py-2 rounded-md ${page >= totalPages
-                        ? "bg-gray-700 text-gray-400 cursor-not-allowed"
-                        : "bg-gray-800 text-white hover:bg-gray-700"
+                    className={`px-4 py-2 rounded-md transition-all ${page >= totalPages
+                        ? "bg-transparent text-gray-400 cursor-not-allowed"
+                        : "bg-white/10 text-white hover:bg-white/20 backdrop-blur"
                         }`}
                 >
                     Next
                 </button>
             </div>
-
         </div>
     );
 }

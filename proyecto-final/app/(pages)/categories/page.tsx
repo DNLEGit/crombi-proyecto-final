@@ -27,14 +27,26 @@ export default function CategoriesPage() {
     }, [])
 
     return (
-        <div className="grid grid-cols-4 gap-6 bg-gray-950 p-2">
-            {categories.map(category => (
-                <CategoryCard
-                    key={category.categoryId}
-                    category={category}
+        <div>
+            <div>
+                <img
+                    src="https://storage.googleapis.com/bucket-videoar/e3a68822-656a-4ae3-afca-ddabc48d3928.png"
+                    alt="Background"
+                    className="absolute top-0 left-0 w-full h-full object-cover -z-10"
                 />
-            )
-            )}
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-6">
+
+                {categories.map(category => (
+                    <CategoryCard
+
+                        key={category.categoryId}
+                        category={category}
+                    />
+                )
+                )}
+            </div>
         </div>
     );
 }

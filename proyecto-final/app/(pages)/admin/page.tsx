@@ -7,6 +7,7 @@ export default function Admin() {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
+    const [stock, setStock] = useState("");
     const [categoryId, setCategoryId] = useState("");
     const [categories, setCategories] = useState<Array<{ categoryId: string; name: string }>>([]);
     const [image, setImage] = useState<File | null>(null);
@@ -29,6 +30,7 @@ export default function Admin() {
         formData.append("name", name);
         formData.append("description", description);
         formData.append("price", price);
+        formData.append("stock", stock)
         formData.append("category", categoryId);
         if (image) formData.append("image", image);
 
@@ -83,6 +85,18 @@ export default function Admin() {
                         type="number"
                         value={price}
                         onChange={(e) => setPrice(e.target.value)}
+                        className="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white"
+                        required
+                    />
+                </div>
+
+
+                <div className="mb-4">
+                    <label className="block text-gray-300 font-medium mb-2">Stock</label>
+                    <input
+                        type="number"
+                        value={stock}
+                        onChange={(e) => setStock(e.target.value)}
                         className="w-full p-2 bg-gray-700 border border-gray-600 rounded text-white"
                         required
                     />

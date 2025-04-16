@@ -3,7 +3,7 @@
 import { hash } from 'bcryptjs';
 import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
-import { set } from 'zod';
+
 
 const UserUpdatePage = () => {
     // State variables to hold user input
@@ -27,7 +27,6 @@ const UserUpdatePage = () => {
         }
 
         console.log("FormData: ", formData.get("name"), formData.get("password"), formData.get("image"));
-        //Sends the info of formData to the api route (this could be wrong)
         const res = await fetch("/api/auth/user", {
             method: "PUT",
             body: formData,
