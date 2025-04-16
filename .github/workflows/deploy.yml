@@ -40,14 +40,14 @@ jobs:
           docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app .
           docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app
 
-      # # Paso 6: Desplegar en Cloud Run
-      # - name: Desplegar en Cloud Run
-      #   run: |
-      #     gcloud run deploy mi-app \
-      #       --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app \
-      #       --region us-central1 \
-      #       --platform managed \
-      #       --allow-unauthenticated \
-      #       --service-account github-actions@${{ secrets.GCP_PROJECT }}.iam.gserviceaccount.com \
-      #       --set-env-vars "NODE_ENV=production" \
-      #       --set-env-vars "DATABASE_URL=${{ secrets.DATABASE_URL }}"
+      # Paso 6: Desplegar en Cloud Run
+      - name: Desplegar en Cloud Run
+        run: |
+          gcloud run deploy mi-app \
+            --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app \
+            --region us-central1 \
+            --platform managed \
+            --allow-unauthenticated \
+            --service-account github-actions@${{ secrets.GCP_PROJECT }}.iam.gserviceaccount.com \
+            --set-env-vars "NODE_ENV=production" \
+            --set-env-vars "DATABASE_URL=${{ secrets.DATABASE_URL }}"
