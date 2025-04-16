@@ -38,9 +38,16 @@ export default function UserPage() {
 
     }
     return (
-        <div className='bg-gray-950'>
+        <div >
             <div>
                 <h1>User Page</h1>
+            </div>
+            <div>
+                <img
+                    src="https://storage.googleapis.com/bucket-videoar/8fe51696-2dc9-494e-b196-e57fd4d596f8.jpg"
+                    alt="Background"
+                    className="absolute top-0 left-0 w-full h-full object-cover -z-10 blur-sm"
+                />
             </div>
             <form onSubmit={handleSubmit}>
                 <div>

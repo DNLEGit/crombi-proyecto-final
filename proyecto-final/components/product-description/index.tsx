@@ -3,7 +3,7 @@ import { Product } from "@prisma/client";
 /* eslint-disable @next/next/no-img-element */
 export default function ProductDescription({ product }: { product: Product }) {
     return (
-        <div className="min-h-screen w-full flex justify-center items-center bg-[#1c1b1c] p-6">
+        <div className="min-h-screen w-full flex justify-center items-center  p-6">
             <div className="max-w-4xl w-full bg-[#323132] text-white rounded-2xl shadow-xl p-8 flex flex-col md:flex-row gap-6">
                 {/* Image */}
                 <div className="w-full md:w-1/2 h-80 bg-[#3d3c3d] rounded-xl flex justify-center items-center overflow-hidden">

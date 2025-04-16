@@ -27,7 +27,14 @@ export default function User() {
   }, []);
 
   return (
-    <div className="bg-gray-950 min-h-screen flex items-center justify-center">
+    <div className=" min-h-screen flex items-center justify-center">
+      <div>
+        <img
+          src="https://storage.googleapis.com/bucket-videoar/8fe51696-2dc9-494e-b196-e57fd4d596f8.jpg"
+          alt="Background"
+          className="absolute top-0 left-0 w-full h-full object-cover -z-10 blur-sm"
+        />
+      </div>
       {/* loading para esperar a que se haga la busqueda de los datos del usuario */}
       {user ? (
         <UserCard user={user} />

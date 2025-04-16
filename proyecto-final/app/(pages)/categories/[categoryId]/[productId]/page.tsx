@@ -30,7 +30,7 @@ const ProductPage = () => {
                 <img
                     src="https://storage.googleapis.com/bucket-videoar/b0f4566a-acae-4672-8c66-e36661509207.png"
                     alt="Background"
-                    className="absolute bot-0 left-0 w-full h-full object-cover -z-10"
+                    className="absolute bot-0 left-0 w-full h-full object-cover -z-10 blur-sm"
                 />
             </div>
             {produtcToDisplay && <ProductDescription product={produtcToDisplay} />}
