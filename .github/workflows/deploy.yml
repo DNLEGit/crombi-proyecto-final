@@ -24,11 +24,11 @@ jobs:
         with:
           credentials_json: ${{ secrets.GSP_SA_KEY }}  # Se espera que tengas esta clave en tus secrets
 
-      # # Paso 3: Configurar Google Cloud SDK
-      # - name: Configurar Google Cloud SDK
-      #   uses: google-github-actions/setup-gcloud@v1
-      # #   with:
-      # #     project_id: ${{ secrets.GCP_PROJECT }}  # Tu ID de proyecto en GCP
+      # Paso 3: Configurar Google Cloud SDK
+      - name: Configurar Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT }}  # Tu ID de proyecto en GCP
 
       # # Paso 4: Autenticar Docker con Artifact Registry
       # - name: Autenticar Docker con Artifact Registry
