@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://root:rasputin123@34.44.133.19:3306/db-videoar"
+  url      = env("DATABASE_URL")
 }
 
 model User {
