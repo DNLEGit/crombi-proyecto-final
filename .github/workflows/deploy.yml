@@ -13,7 +13,7 @@ jobs:
 
     steps:
       - name: asd
-        run: echo "${{ secrets.GCP_SA_KEY }}"
+        run: echo "${{ secrets.GSP_SA_KEY }}"
       # Paso 1: Clonar el repositorio
       - name: Clonar el repositorio
         uses: actions/checkout@v3
@@ -22,7 +22,7 @@ jobs:
       - name: Autenticarse en Google Cloud
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}  # Se espera que tengas esta clave en tus secrets
+          credentials_json: ${{ secrets.GSP_SA_KEY }}  # Se espera que tengas esta clave en tus secrets
 
       # # Paso 3: Configurar Google Cloud SDK
       # - name: Configurar Google Cloud SDK
