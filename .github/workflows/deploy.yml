@@ -30,9 +30,9 @@ jobs:
         with:
           project_id: ecommerce-crombie    # Tu ID de proyecto en GCP
 
-      # # Paso 4: Autenticar Docker con Artifact Registry
-      # - name: Autenticar Docker con Artifact Registry
-      #   run: gcloud auth configure-docker us-central1-docker.pkg.dev
+      # Paso 4: Autenticar Docker con Artifact Registry
+      - name: Autenticar Docker con Artifact Registry
+        run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
       # # Paso 5: Construir y enviar imagen a Artifact Registry
       # - name: Construir y enviar imagen a Artifact Registry
