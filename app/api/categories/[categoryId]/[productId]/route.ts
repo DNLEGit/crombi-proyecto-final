@@ -4,15 +4,16 @@ import { PrismaClient } from "@prisma/client";
 
 import { NextResponse, NextRequest } from "next/server";
 
-export async function GET(request: NextRequest, { params }: { params: { productId: string } }) {
+export async function GET(
+    request: NextRequest,
+    { params }: { params: { categoryId: string; productId: string } }
+) {
     const { productId } = params;
     const prisma = new PrismaClient();
+
     try {
         const product = await prisma.product.findUnique({
-            where: {
-                productId,
-
-            },
+            where: { productId },
         });
 
         if (!product) return NextResponse.json({ message: "Product not found" }, { status: 404 });
@@ -23,3 +24,4 @@ export async function GET(request: NextRequest, { params }: { params: { productI
         await prisma.$disconnect();
     }
 }
+
