@@ -14,36 +14,36 @@ jobs:
       - name: Clonar el repositorio
         uses: actions/checkout@v3
 
-      # Paso 2: Autenticarse en Google Cloud
-      - name: Autenticarse en Google Cloud
-        uses: google-github-actions/auth@v1
-        with:
-          credentials_json: ${{ secrets.GCP_SA_KEY }}  # Se espera que tengas esta clave en tus secrets
+      # # Paso 2: Autenticarse en Google Cloud
+      # - name: Autenticarse en Google Cloud
+      #   uses: google-github-actions/auth@v1
+      #   with:
+      #     credentials_json: ${{ secrets.GCP_SA_KEY }}  # Se espera que tengas esta clave en tus secrets
 
-      # Paso 3: Configurar Google Cloud SDK
-      - name: Configurar Google Cloud SDK
-        uses: google-github-actions/setup-gcloud@v1
-        with:
-          project_id: ${{ secrets.GCP_PROJECT }}  # Tu ID de proyecto en GCP
+      # # Paso 3: Configurar Google Cloud SDK
+      # - name: Configurar Google Cloud SDK
+      #   uses: google-github-actions/setup-gcloud@v1
+      #   with:
+      #     project_id: ${{ secrets.GCP_PROJECT }}  # Tu ID de proyecto en GCP
 
-      # Paso 4: Autenticar Docker con Artifact Registry
-      - name: Autenticar Docker con Artifact Registry
-        run: gcloud auth configure-docker us-central1-docker.pkg.dev
+      # # Paso 4: Autenticar Docker con Artifact Registry
+      # - name: Autenticar Docker con Artifact Registry
+      #   run: gcloud auth configure-docker us-central1-docker.pkg.dev
 
-      # Paso 5: Construir y enviar imagen a Artifact Registry
-      - name: Construir y enviar imagen a Artifact Registry
-        run: |
-          docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app .
-          docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app
+      # # Paso 5: Construir y enviar imagen a Artifact Registry
+      # - name: Construir y enviar imagen a Artifact Registry
+      #   run: |
+      #     docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app .
+      #     docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app
 
-      # Paso 6: Desplegar en Cloud Run
-      - name: Desplegar en Cloud Run
-        run: |
-          gcloud run deploy mi-app \
-            --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app \
-            --region us-central1 \
-            --platform managed \
-            --allow-unauthenticated \
-            --service-account github-actions@${{ secrets.GCP_PROJECT }}.iam.gserviceaccount.com \
-            --set-env-vars "NODE_ENV=production" \
-            --set-env-vars "DATABASE_URL=${{ secrets.DATABASE_URL }}"
+      # # Paso 6: Desplegar en Cloud Run
+      # - name: Desplegar en Cloud Run
+      #   run: |
+      #     gcloud run deploy mi-app \
+      #       --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app \
+      #       --region us-central1 \
+      #       --platform managed \
+      #       --allow-unauthenticated \
+      #       --service-account github-actions@${{ secrets.GCP_PROJECT }}.iam.gserviceaccount.com \
+      #       --set-env-vars "NODE_ENV=production" \
+      #       --set-env-vars "DATABASE_URL=${{ secrets.DATABASE_URL }}"
