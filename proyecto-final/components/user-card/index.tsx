@@ -1,8 +1,15 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { User } from '@prisma/client';
+
+
 import Link from 'next/link';
 import React from 'react';
 import Image from 'next/image';
+
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  imageUrl: string;
+};
 
 export default function Card({ user }: { user: User }) {
   return (

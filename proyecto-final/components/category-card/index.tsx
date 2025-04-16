@@ -1,6 +1,12 @@
-import { Category } from "@prisma/client";
+
 import Image from "next/image";
 import Link from "next/link";
+
+interface Category {
+    categoryId: string;
+    categoryImageUrl: string;
+    name: string;
+}
 
 export default function CategoryCard({ category }: { category: Category }) {
     return (
@@ -10,10 +16,11 @@ export default function CategoryCard({ category }: { category: Category }) {
         >
             {/* Image Wrapper */}
             <div className="w-full h-60 flex-grow overflow-hidden rounded-2xl">
-                <img
+                <Image
                     src={category.categoryImageUrl}
                     alt={category.categoryImageUrl}
-                    className="object-contain"
+                    layout="fill"
+                    objectFit="contain"
                 />
             </div>
 

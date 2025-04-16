@@ -20,7 +20,7 @@ export async function GET(request: NextRequest, { params }: { params: { producId
         if (!product) return NextResponse.json({ message: "Product not found" }, { status: 404 });
         return NextResponse.json({ product }, { status: 200 });
     } catch (error) {
-        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+        return NextResponse.json({ message: (error as Error).message }, { status: 500 });
     }
 }
 //Delete product
@@ -48,8 +48,8 @@ export async function DELETE(request: NextRequest, { params }: { params: { produ
 export async function PUT(request: NextRequest, { params }: { params: { productId: string } }) {
     const { productId: producId } = await params;
     const formData = await request.formData();
-    const productName = formData.get("name") as String;
-    const productDescription = formData.get("description") as String;
+    const productName = formData.get("name") as string;
+    const productDescription = formData.get("description") as string;
     const productStock = Number(formData.get("stock"));
     const productPrice = Number(formData.get("price"));
     const productImage = formData.get("image") as File;
@@ -79,7 +79,7 @@ export async function PUT(request: NextRequest, { params }: { params: { productI
 
     try {
 
-        const dataToUpdate: any = {}
+        const dataToUpdate: Partial<{ name: string; image: string; description: string; price: number; stock: number }> = {}
 
         if (productName) dataToUpdate.name = productName.toString()
         if (imageUrl) dataToUpdate.image = imageUrl

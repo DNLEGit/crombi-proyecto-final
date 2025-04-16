@@ -1,31 +1,28 @@
 import WeeklyDeals from "@/components/weekly-deals";
+import Image from "next/image";
 
 
 export default function Home() {
 
 
   return (
-    <div className="relative w-full h-screen">
+    <><div className="relative w-full h-screen">
       {/* Background image */}
       <div>
-        <div>
-          <img
-            src="https://storage.googleapis.com/bucket-videoar/e3a68822-656a-4ae3-afca-ddabc48d3928.png"
-            alt="Background"
-            className="absolute top-0 left-0 w-full h-full object-cover -z-10"
-          />
-        </div>
-
-        {/* Foreground image */}
-
-        <WeeklyDeals />
-
+        <Image
+          src="https://storage.googleapis.com/bucket-videoar/e3a68822-656a-4ae3-afca-ddabc48d3928.png"
+          alt="Background"
+          layout="fill"
+          objectFit="cover"
+          className="-z-10" />
       </div>
-      <div>
 
+      {/* Foreground image */}
 
-      </div>
+      <WeeklyDeals />
+
     </div>
+    </>
 
   );
 }

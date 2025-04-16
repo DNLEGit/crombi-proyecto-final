@@ -38,7 +38,7 @@ export default function WeeklyDeals() {
 
                 {/* Sección que se superpone a las imágenes */}
                 <div className=" transition-transform duration-300 hover:scale-105 absolute top-[75%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/3 text-center bg-[#8858ed] p-8 rounded-2xl z-10">
-                    <h2 className="text-xl font-semibold text-white">THIS WEEK'S DEALS</h2>
+                    <h2 className="text-xl font-semibold text-white">THIS WEEKS DEALS</h2>
                     <p className="text-[140px] leading-none font-bold text-white">10%</p>
                     <p className="text-3xl text-white">off all FromSoftware games</p>
                     <Link href="/products">

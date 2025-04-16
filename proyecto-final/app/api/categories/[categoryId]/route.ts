@@ -15,6 +15,6 @@ export async function GET(request: NextRequest, { params }: { params: { category
         if (!categoryProducts) return NextResponse.json({ message: "Category not found" }, { status: 404 });
         return NextResponse.json({ categoryProducts }, { status: 200 });
     } catch (error) {
-        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+        return NextResponse.json({ message: (error as Error).message }, { status: 500 });
     }
 }

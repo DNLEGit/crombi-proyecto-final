@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 "use server"
 import { prisma } from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";

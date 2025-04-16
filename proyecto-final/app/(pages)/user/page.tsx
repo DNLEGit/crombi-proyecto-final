@@ -1,6 +1,7 @@
 "use client"
 import UserCard from "@/components/user-card";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 
 export default function User() {
@@ -29,10 +30,12 @@ export default function User() {
   return (
     <div className=" min-h-screen flex items-center justify-center">
       <div>
-        <img
+        <Image
           src="https://storage.googleapis.com/bucket-videoar/8fe51696-2dc9-494e-b196-e57fd4d596f8.jpg"
           alt="Background"
-          className="absolute top-0 left-0 w-full h-full object-cover -z-10 blur-sm"
+          layout="fill"
+          objectFit="cover"
+          className="absolute top-0 left-0 -z-10 blur-sm"
         />
       </div>
       {/* loading para esperar a que se haga la busqueda de los datos del usuario */}

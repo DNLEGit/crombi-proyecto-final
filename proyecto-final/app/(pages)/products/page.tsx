@@ -1,8 +1,9 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 "use client";
 import Card from "@/components/card";
 import { Product } from "@prisma/client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 const PAGE_SIZE = 10;
@@ -60,10 +61,13 @@ export default function Products() {
     return (
         <div>
             {/* Background Image */}
-            <img
+            <Image
                 src="https://storage.googleapis.com/bucket-videoar/b0f4566a-acae-4672-8c66-e36661509207.png"
                 alt="Background"
-                className="absolute bot-0 left-0 w-full h-full object-cover -z-10 blur-sm"
+                layout="fill"
+                objectFit="cover"
+                className="-z-10 blur-sm"
+                priority
             />
 
             {/* Search Input */}

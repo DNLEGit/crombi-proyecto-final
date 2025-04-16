@@ -1,5 +1,6 @@
 "use client"
 import React, { useEffect, useState } from 'react';
+import Image from 'next/image';
 import ProductDescription from '@/components/product-description';
 import { useParams } from 'next/navigation';
 import { Product } from '@prisma/client';
@@ -27,7 +28,7 @@ const ProductPage = () => {
     return (
         <div>
             <div>
-                <img
+                <Image
                     src="https://storage.googleapis.com/bucket-videoar/b0f4566a-acae-4672-8c66-e36661509207.png"
                     alt="Background"
                     className="absolute bot-0 left-0 w-full h-full object-cover -z-10 blur-sm"

@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+
 "use server"
 import { PrismaClient } from "@prisma/client";
 import { NextResponse } from "next/server";
@@ -14,7 +14,7 @@ export async function GET() {
   } catch (error) {
 
     return NextResponse.json(
-      { error: "Error al obtener categorías" },
+      { message: (error as Error).message },
       { status: 500 }
     );
   }

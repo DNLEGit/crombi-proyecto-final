@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client"
 import { useState } from 'react'
+import Image from 'next/image'
 import { hash } from 'bcryptjs';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -38,18 +39,17 @@ export default function UserPage() {
 
     }
     return (
-        <div >
+        <><div>
             <div>
                 <h1>User Page</h1>
             </div>
-            <div>
-                <img
-                    src="https://storage.googleapis.com/bucket-videoar/8fe51696-2dc9-494e-b196-e57fd4d596f8.jpg"
-                    alt="Background"
-                    className="absolute top-0 left-0 w-full h-full object-cover -z-10 blur-sm"
-                />
-            </div>
-            <form onSubmit={handleSubmit}>
+            <Image
+                src="https://storage.googleapis.com/bucket-videoar/8fe51696-2dc9-494e-b196-e57fd4d596f8.jpg"
+                alt="Background"
+                layout="fill"
+                objectFit="cover"
+                className="absolute top-0 left-0 -z-10 blur-sm" />
+        </div><form onSubmit={handleSubmit}>
                 <div>
                     <div className="max-w-md mx-auto relative overflow-hidden z-10 bg-gray-900 p-8 rounded-lg shadow-md before:w-24 before:h-24 before:absolute before:bg-purple-600 before:rounded-full before:-z-10 before:blur-2xl after:w-32 after:h-32 after:absolute after:bg-purple-600 after:rounded-full after:-z-10 after:blur-xl after:top-24 after:-right-12">
                         <h2 className="text-2xl font-bold text-white mb-6">Create Your Profile</h2>
@@ -62,8 +62,7 @@ export default function UserPage() {
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                required
-                            />
+                                required />
                         </div>
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-300" htmlFor="email">
@@ -74,8 +73,7 @@ export default function UserPage() {
                                 type="text"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                required
-                            />
+                                required />
                         </div>
 
                         <div className="mb-4">
@@ -86,8 +84,7 @@ export default function UserPage() {
                                 type="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
+                                required />
                         </div>
                         <div className="flex justify-end">
                             <button
@@ -102,8 +99,7 @@ export default function UserPage() {
                     </div>
 
                 </div>
-            </form>
+            </form></>
 
-        </div>
     );
 }
