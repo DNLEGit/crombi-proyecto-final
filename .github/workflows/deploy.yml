@@ -37,8 +37,9 @@ jobs:
       # Paso 5: Construir y enviar imagen a Artifact Registry
       - name: Construir y enviar imagen a Artifact Registry
         run: |
-          docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/prog/crombi-proyecto-final .
-          docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/prog/crombi-proyecto-final
+          docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/crombi-proyecto-final/web:latest .
+          docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/crombi-proyecto-final/web:latest
+
 
       # Paso 6: Desplegar en Cloud  Run
       - name: Desplegar en Cloud Run
