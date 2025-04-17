@@ -37,14 +37,14 @@ jobs:
       # Paso 5: Construir y enviar imagen a Artifact Registry
       - name: Construir y enviar imagen a Artifact Registry
         run: |
-          docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app .
-          docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app
+          docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/crombi-proyecto-final/mi-app .
+          docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/crombi-proyecto-final/mi-app
 
       # Paso 6: Desplegar en Cloud  Run
       - name: Desplegar en Cloud Run
         run: |
           gcloud run deploy mi-app \
-            --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/proyecto-final/mi-app \
+            --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT }}/crombi-proyecto-final/mi-app \
             --region us-central1 \
             --platform managed \
             --allow-unauthenticated \
