@@ -52,3 +52,4 @@ jobs:
             --service-account github-actions@${{ secrets.GCP_PROJECT }}.iam.gserviceaccount.com \
             --set-env-vars "NODE_ENV=production" \
             --set-env-vars "DATABASE_URL=${{ secrets.DATABASE_URL }}" 
+            --set-env-vars "JWT_SECRET=${{ secrets.JWT_SECRET }}" \
