@@ -16,7 +16,6 @@ const ProductPage = () => {
                 if (!res.ok) throw new Error("Failed to fetch product");
                 const data = await res.json();
                 setProductToDisplay(data.product);
-
             } catch (err) {
                 console.error(err);
             }
@@ -26,15 +25,24 @@ const ProductPage = () => {
     }, [params.categoryId, params.productId]);
 
     return (
-        <div>
-            <div>
-                <Image
-                    src="https://storage.googleapis.com/bucket-videoar/b0f4566a-acae-4672-8c66-e36661509207.png"
-                    alt="Background"
-                    className="absolute bot-0 left-0 w-full h-full object-cover -z-10 blur-sm"
-                />
+        <div className="relative min-h-screen w-full overflow-hidden">
+            {/* Fondo desenfocado */}
+            <Image
+                src="https://storage.googleapis.com/bucket-videoar/b0f4566a-acae-4672-8c66-e36661509207.png"
+                alt="Background"
+                fill
+                className="object-cover blur-md -z-10"
+            />
+            {/* Componente encima */}
+            <div className="relative z-10">
+                {produtcToDisplay ? (
+                    <ProductDescription product={produtcToDisplay} />
+                ) : (
+                    <div className="absolute inset-0 flex items-center justify-center min-h-screen z-20">
+                        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500"></div>
+                    </div>
+                )}
             </div>
-            {produtcToDisplay && <ProductDescription product={produtcToDisplay} />}
         </div>
     );
 };

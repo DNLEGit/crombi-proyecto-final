@@ -30,12 +30,12 @@ export default function Card(props: Product & { role: string }) {
           )}
 
           {/* Image Section - fills remaining space */}
-          <div className="relative w-full h-60 overflow-hidden">
+          <div className="relative w-full h-90 overflow-hidden">
             <Image
               src={props.image}
               alt={props.name}
+              fill
               className="object-contain"
-              layout="fill"
             />
           </div>
 
