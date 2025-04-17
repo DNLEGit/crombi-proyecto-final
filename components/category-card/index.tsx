@@ -1,4 +1,3 @@
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,17 +9,15 @@ interface Category {
 
 export default function CategoryCard({ category }: { category: Category }) {
     return (
-        <div
-            className="relative w-64 h-80 overflow-hidden rounded-2xl drop-shadow-xl transition-transform duration-300 hover:scale-105 group"
-            style={{ position: 'relative', overflowY: 'hidden' }}
-        >
+        <div className="relative w-64 h-80 overflow-hidden rounded-2xl drop-shadow-xl transition-transform duration-300 hover:scale-105 group bg-translusid">
             {/* Image Wrapper */}
-            <div className="w-full h-60 flex-grow overflow-hidden rounded-2xl">
+            <div className="relative w-full h-60 overflow-hidden rounded-t-2xl">
                 <Image
                     src={category.categoryImageUrl}
-                    alt={category.categoryImageUrl}
-                    layout="fill"
-                    objectFit="contain"
+                    alt={category.name}
+                    fill
+                    className="object-contain rounded-t-2xl"
+                    sizes="256px"
                 />
             </div>
 
@@ -39,7 +36,7 @@ export default function CategoryCard({ category }: { category: Category }) {
 
             {/* Bottom Info (always visible) */}
             <div className="absolute bottom-0 left-0 right-0 bg-opacity-60 text-white text-center py-2 z-30">
-                <div className="text-lg  font-bold truncate px-2">{category.name}</div>
+                <div className="text-lg font-bold truncate px-2">{category.name}</div>
             </div>
         </div>
     );

@@ -8,8 +8,12 @@ const prisma = new PrismaClient();
 const storage = new Storage();
 const BUCKET_NAME = 'bucket-videoar';
 
-export async function GET(request: NextRequest, { params }: { params: { producId: string } }) {
-    const { producId: productId } = params;
+export async function GET(request: NextRequest,
+    context: { params: Promise<{ productId: string }> }
+) {
+
+    const resolvedParams = await context.params;
+    const { productId } = resolvedParams
 
     try {
         const product = await prisma.product.findUnique({
@@ -24,13 +28,15 @@ export async function GET(request: NextRequest, { params }: { params: { producId
     }
 }
 //Delete product
-export async function DELETE(request: NextRequest, { params }: { params: { productId: string } }) {
-    const { productId: producId } = await params;
+export async function DELETE(request: NextRequest, context: { params: Promise<{ productId: string }> }) {
+
+    const resolvedParams = await context.params;
+    const { productId } = resolvedParams
 
     try {
         const product = await prisma.product.delete({
             where: {
-                productId: producId,
+                productId: productId,
             },
         });
 
@@ -45,8 +51,11 @@ export async function DELETE(request: NextRequest, { params }: { params: { produ
     }
 }
 //Edit product
-export async function PUT(request: NextRequest, { params }: { params: { productId: string } }) {
-    const { productId: producId } = await params;
+export async function PUT(request: NextRequest, context: { params: Promise<{ productId: string }> }) {
+
+    const resolvedParams = await context.params;
+    const { productId } = resolvedParams
+
     const formData = await request.formData();
     const productName = formData.get("name") as string;
     const productDescription = formData.get("description") as string;
@@ -54,9 +63,10 @@ export async function PUT(request: NextRequest, { params }: { params: { productI
     const productPrice = Number(formData.get("price"));
     const productImage = formData.get("image") as File;
     console.log("product name", productName)
+
     const product = await prisma.product.findUnique({
         where: {
-            productId: producId,
+            productId: productId,
         },
     });
     if (!product) return NextResponse.json({ error: 'product not found' }, { status: 404 });

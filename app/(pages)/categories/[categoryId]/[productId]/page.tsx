@@ -12,7 +12,7 @@ const ProductPage = () => {
     useEffect(() => {
         const fetchProduct = async () => {
             try {
-                const res = await fetch(`/api/categories/${params.categoryId}/${params.productId}`);
+                const res = await fetch(`/api/product/${params.productId}`);
                 if (!res.ok) throw new Error("Failed to fetch product");
                 const data = await res.json();
                 setProductToDisplay(data.product);
