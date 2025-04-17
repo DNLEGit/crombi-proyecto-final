@@ -9,7 +9,7 @@ import { useParams } from "next/navigation";
 export default function ClientCategoryPage() {
     const { categoryId } = useParams() as { categoryId: string }; // ⬅️ Strong typing
     const [categoryProducts, setCategoryProducts] = useState<Product[]>([]);
-    const [loading, setLoading] = useState<boolean>(true); // Estado para controlar la carga
+
 
     useEffect(() => {
         const fetchCategoryProducts = async () => {
@@ -19,10 +19,10 @@ export default function ClientCategoryPage() {
 
                 const data = await response.json();
                 setCategoryProducts(data.categoryProducts); // ⬅️ Make sure your API returns this key
-                setLoading(false); // Detener la carga cuando los productos estén disponibles
+
             } catch (error) {
                 console.error("Error fetching category products:", error);
-                setLoading(false); // Detener la carga en caso de error
+
             }
         };
 
@@ -43,17 +43,13 @@ export default function ClientCategoryPage() {
             />
             {/* Contenedor para los productos o el indicador de carga */}
             <div className="relative z-10">
-                {loading ? (
-                    <div className="flex flex-wrap justify-center gap-4">
-                        {categoryProducts.map((product: Product) => (
-                            <Card key={product.productId} {...product} role={"CLIENT"} />
-                        ))}
-                    </div>
-                ) : (
-                    <div className="absolute inset-0 flex items-center justify-center min-h-screen z-20">
-                        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500"></div>
-                    </div>
-                )}
+
+                <div className="flex flex-wrap justify-center gap-4">
+                    {categoryProducts.map((product: Product) => (
+                        <Card key={product.productId} {...product} role={"CLIENT"} />
+                    ))}
+                </div>
+
             </div>
         </div>
     );
