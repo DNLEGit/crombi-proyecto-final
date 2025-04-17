@@ -30,13 +30,14 @@ export default function User() {
   return (
     <div className=" min-h-screen flex items-center justify-center">
       <div>
-        <Image
-          src="https://storage.googleapis.com/bucket-videoar/8fe51696-2dc9-494e-b196-e57fd4d596f8.jpg"
-          alt="Background"
-          layout="fill"
-          objectFit="cover"
-          className="absolute top-0 left-0 -z-10 blur-sm"
-        />
+        <div className="relative w-full h-full">
+          <Image
+            src="https://storage.googleapis.com/bucket-videoar/8fe51696-2dc9-494e-b196-e57fd4d596f8.jpg"
+            alt="Background"
+            fill
+            className="absolute top-0 left-0 -z-10 blur-sm object-cover"
+          />
+        </div>
       </div>
       {/* loading para esperar a que se haga la busqueda de los datos del usuario */}
       {user ? (
