@@ -87,7 +87,7 @@ export async function PUT(request: NextRequest) {
     if (!user) {
         return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
-
+    let imageUrl = "";
 
     if (userImage) {
         const arrayBuffer = await userImage?.arrayBuffer(); // 👈 Ensure userImage is a File or Blob
@@ -98,14 +98,14 @@ export async function PUT(request: NextRequest) {
             metadata: { contentType: 'image/jpeg' }, // Adjust content type if needed
             public: true,
         });
-        const imageUrl = `https://storage.googleapis.com/${BUCKET_NAME}/${fileName}`;
+        imageUrl = `https://storage.googleapis.com/${BUCKET_NAME}/${fileName}`;
     }
 
     const updatedUser = await prisma.user.update({
         where: { userId: user.userId },
         data: {
             name: name || user.name,
-            imageUrl: user.imageUrl,
+            imageUrl: imageUrl || user.imageUrl,
             password: password || user.password,
         },
     });

@@ -1,4 +1,4 @@
-// components/ProductsList.tsx
+
 "use client";
 
 import Card from "@/components/card";
@@ -76,12 +76,12 @@ export default function ProductsList() {
                 value={search}
                 onChange={handleSearch}
             />
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 p-6 mb-20">
                 {products.map((product: Product) => (
                     <Card role={role} key={product.productId} {...product} />
                 ))}
             </div>
-            <div className="fixed bottom-0 left-0 w-full flex justify-center items-center gap-2 bg-transparent py-4">
+            <div className="fixed bottom-0 left-0 w-full flex justify-center items-center gap-2 bg-black/40 backdrop-blur-md py-4 z-50">
                 <button
                     disabled={page <= 1}
                     onClick={() => {

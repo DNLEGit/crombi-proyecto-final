@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 
+
 export default function UserPage() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -23,26 +24,25 @@ export default function UserPage() {
         const hashedPassword = await hash(password, 10);
         formData.append("password", hashedPassword);
 
-        console.log(formData);
+        console.log(formData.get("name"));
 
-        const res = await fetch("/api/auth/user", {
+        const res = await fetch("/api/auth/user/", {
             method: "POST",
             body: formData,
         });
+
         console.log(res);
         if (res.ok) {
             alert("User created");
             setName("");
             setEmail("");
-            router.push("/user");
+            setPassword("");
+            router.push("/login");
         }
 
     }
     return (
         <><div>
-            <div>
-                <h1>User Page</h1>
-            </div>
             <Image
                 src="https://storage.googleapis.com/bucket-videoar/8fe51696-2dc9-494e-b196-e57fd4d596f8.jpg"
                 alt="Background"
@@ -91,7 +91,7 @@ export default function UserPage() {
                                 type="submit"
                                 className="bg-gradient-to-r from-purple-600 via-purple-400 to-purple-800 text-white px-4 py-2 font-bold rounded-md hover:opacity-80"
                             >
-                                Register!
+                                Register
 
                             </button>
                         </div>
