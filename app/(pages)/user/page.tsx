@@ -45,7 +45,7 @@ export default function User() {
       ) : (
         // modificar para que aparezca un logo de carga en vez de texto fijo
         <div>
-          <p>Loading user</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary"></div>
         </div>
       )}
     </div>
